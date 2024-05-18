@@ -123,7 +123,7 @@ app.post("/registeradmin", async (req, res) => {
                     <p style="margin: 5px 0;">You can use these credentials to log in, or you can change your password for added security by clicking on the "Set Password" link provided below.</p>
                 </div>
                 <p>Please set your new password by visiting the following link:</p>
-                <p><a href="http://localhost:3000/newpassword/${req.body.email}">Set Password</a></p>
+                <p><a href="https://superadmin-backend.onrender.com/newpassword/${req.body.email}">Set Password</a></p>
                 <p>If you encounter any issues or have any questions, feel free to reach out to us.</p>
 
                 <p class="footer">Best regards,<br><span class="team">PROJECT OPEN X team</span></p>
@@ -415,7 +415,7 @@ app.post("/forgotadminpassword", async (req, res) => {
                                       <table border="0" cellspacing="0" cellpadding="0" role="presentation">
                                         <tr>
                                           <td align="center">
-                                            <a href="http://localhost:3000/setforgotpassword/${req.body.email}" class="button button--green" target="_blank">Reset your password</a>
+                                            <a href="https://superadmin-backend.onrender.com/setforgotpassword/${req.body.email}" class="button button--green" target="_blank">Reset your password</a>
                                           </td>
                                         </tr>
                                       </table>
@@ -478,7 +478,6 @@ app.post("/forgotadminpassword", async (req, res) => {
         }
     });
 })
-
 
 app.delete("/deleteadmin/:_id", async (req, res) => {
     const datas = await adminModel.deleteOne({ _id: req.params._id })
