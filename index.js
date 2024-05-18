@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 require("./db/connection");
 require("dotenv").config();
 const adminModel = require("./db/admin");
-const PORT_NUMBER = process.env.PORT;
+const PORT_NUMBER = process.env.PORT || 4600;
 
 var nodemailer = require('nodemailer');
 
@@ -545,8 +545,14 @@ app.get("/showadmin", async (req, res) => {
 })
 
 
-app.listen(4600, () => {
-    console.log("server is running on port no 4600");
+
+app.listen(PORT_NUMBER, () => {
+  console.log(`Server is running on port no ${PORT_NUMBER}`);
 })
+
+
+// app.listen(4600, () => {
+//     console.log("server is running on port no 4600");
+// })
 
 
