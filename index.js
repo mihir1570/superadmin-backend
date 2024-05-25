@@ -15,33 +15,33 @@ app.use(express.json())
 app.use(cors())
 
 app.put("/updatesavedata/:email", async (req, res) => {
-    const email = req.params.email
-    const result = await adminModel.updateOne({ email: email }, { $set: req.body })
-    res.send(result)
+  const email = req.params.email
+  const result = await adminModel.updateOne({ email: email }, { $set: req.body })
+  res.send(result)
 })
 
 
 // Email auth  'This data is highly sensitive; please do not share it with anyone.'
 var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'mihirpatel6pg6090201@gmail.com',
-        pass: process.env.ADMIN_EMAIL_KEY
-    }
+  service: 'gmail',
+  auth: {
+    user: 'mihirpatel6pg6090201@gmail.com',
+    pass: process.env.ADMIN_EMAIL_KEY
+  }
 });
 
 
 // Register Admin Not: first start the Super admin server for this mail functionalys
 app.post("/registeradmin", async (req, res) => {
-    const data = new adminModel(req.body)
+  const data = new adminModel(req.body)
 
-    // mail send to super admin for create new password 
-    var mailOptions = {
-        from: 'mihirpatel6pg6090201@gmail.com',
-        to: req.body.email,
-        subject: `Hello ${req.body.firstName}`,
-        html:
-            `
+  // mail send to super admin for create new password 
+  var mailOptions = {
+    from: 'mihirpatel6pg6090201@gmail.com',
+    to: req.body.email,
+    subject: `Hello ${req.body.firstName}`,
+    html:
+      `
   
             <!DOCTYPE html>
             <html lang="en">
@@ -135,52 +135,52 @@ app.post("/registeradmin", async (req, res) => {
         `,
 
 
-        // attachments: [
-        //     {
-        //         filename: 'image.jpg',
-        //         path: './db/attachment/PVOT_Designs_B.png',
-                
-        //     },
-        //     {
-        //         filename: 'document.pdf',
-        //         path: './db/attachment/REMS.pdf',
-        //         cid: 'pdfDocument' // Use a unique CID for the PDF
-        //     },
-        // ]
+    // attachments: [
+    //     {
+    //         filename: 'image.jpg',
+    //         path: './db/attachment/PVOT_Designs_B.png',
 
-    };
+    //     },
+    //     {
+    //         filename: 'document.pdf',
+    //         path: './db/attachment/REMS.pdf',
+    //         cid: 'pdfDocument' // Use a unique CID for the PDF
+    //     },
+    // ]
 
-    // Send email
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Error occurred:', error);
-        } else {
-            console.log('Email sent:', info.response);
-        }
-    });
+  };
 
-    const result = await data.save()
-    res.send(result)
+  // Send email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error occurred:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
 
-    // jwt.sign({ data }, jwtKey, { expiresIn: "2h" }, (err, token) => {
-    //     if (err) {
-    //         res.send({ error: "Somthing went wrong, Please after some time" })
-    //     }
-    //     res.send({ data, auth: token})
-    // })
+  const result = await data.save()
+  res.send(result)
+
+  // jwt.sign({ data }, jwtKey, { expiresIn: "2h" }, (err, token) => {
+  //     if (err) {
+  //         res.send({ error: "Somthing went wrong, Please after some time" })
+  //     }
+  //     res.send({ data, auth: token})
+  // })
 })
 
 
 // Not: first start the Super admin server for this sending mail functionalys
 app.post("/forgotadminpassword", async (req, res) => {
-    
-    // mail send to user for forgot password
-    var mailOptions = {
-        from: 'mihirpatel6pg6090201@gmail.com',
-        to: req.body.email,
-        subject: "Forgot Password",
-        html:
-            `
+
+  // mail send to user for forgot password
+  var mailOptions = {
+    from: 'mihirpatel6pg6090201@gmail.com',
+    to: req.body.email,
+    subject: "Forgot Password",
+    html:
+      `
   
 
             <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -454,40 +454,40 @@ app.post("/forgotadminpassword", async (req, res) => {
         `,
 
 
-        // attachments: [
-        //     {
-        //         filename: 'image.jpg',
-        //         path: './db/attachment/PVOT_Designs_B.png',
-                
-        //     },
-        //     {
-        //         filename: 'document.pdf',
-        //         path: './db/attachment/REMS.pdf',
-        //         cid: 'pdfDocument' // Use a unique CID for the PDF
-        //     },
-        // ]
+    // attachments: [
+    //     {
+    //         filename: 'image.jpg',
+    //         path: './db/attachment/PVOT_Designs_B.png',
 
-    };
+    //     },
+    //     {
+    //         filename: 'document.pdf',
+    //         path: './db/attachment/REMS.pdf',
+    //         cid: 'pdfDocument' // Use a unique CID for the PDF
+    //     },
+    // ]
 
-    // Send email
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Error occurred:', error);
-        } else {
-            console.log('Email sent:', info.response);
-        }
-    });
+  };
+
+  // Send email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error occurred:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
 })
 
 app.delete("/deleteadmin/:_id", async (req, res) => {
-    const datas = await adminModel.deleteOne({ _id: req.params._id })
-    res.send(datas)
+  const datas = await adminModel.deleteOne({ _id: req.params._id })
+  res.send(datas)
 })
 
 app.put("/updateadmin/:id", async (req, res) => {
-    const id = req.params.id
-    const result = await adminModel.updateOne({ _id: id }, { $set: req.body })
-    res.send(result)
+  const id = req.params.id
+  const result = await adminModel.updateOne({ _id: id }, { $set: req.body })
+  res.send(result)
 })
 
 
@@ -496,51 +496,51 @@ app.put("/updateadmin/:id", async (req, res) => {
 
 
 app.post("/validatedetail", async (req, res) => {
-    const data = await adminModel.find(req.body)
-    if (data.length >= 1) {
-        res.send(data)
-    } else {
-        res.send({ error: "data not found" })
-    }
+  const data = await adminModel.find(req.body)
+  if (data.length >= 1) {
+    res.send(data)
+  } else {
+    res.send({ error: "data not found" })
+  }
 })
 
 /* -----------// For check admin login detail //------------ */
 app.post("/adminlogin", async (req, res) => {
-    if (req.body.email && req.body.password) {
-        const datas = await adminModel.findOne(req.body)
-        if (datas) {
-            res.send(datas)
-        }
-        else {
-            res.send({ error: "Not any data" })
-        }
+  if (req.body.email && req.body.password) {
+    const datas = await adminModel.findOne(req.body)
+    if (datas) {
+      res.send(datas)
     }
     else {
-        res.send({ error: "You not enter email and passwod" })
+      res.send({ error: "Not any data" })
     }
+  }
+  else {
+    res.send({ error: "You not enter email and passwod" })
+  }
 })
 
 // For check admin login password
 app.post("/checkpassword", async (req, res) => {
-    const datas = await adminModel.findOne(req.body)
-    if (datas) {
-        res.send(datas)
-    }
-    else {
-        res.send({ error: "Not any data" })
-    }
+  const datas = await adminModel.findOne(req.body)
+  if (datas) {
+    res.send(datas)
+  }
+  else {
+    res.send({ error: "Not any data" })
+  }
 }
 )
 
 
 // Fetch superadmin data
 app.get("/showadmin", async (req, res) => {
-    const datas = await adminModel.find().sort({ _id: -1 })
-    if (datas.length >= 1) {
-        res.send(datas)
-    } else {
-        res.send({ error: "not any data" })
-    }
+  const datas = await adminModel.find().sort({ _id: -1 })
+  if (datas.length >= 1) {
+    res.send(datas)
+  } else {
+    res.send({ error: "not any data" })
+  }
 })
 
 
