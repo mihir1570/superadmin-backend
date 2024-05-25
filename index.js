@@ -521,8 +521,8 @@ app.post("/adminlogin", async (req, res) => {
 })
 
 // For check admin login password
-app.post("/checkpassword", async (req, res) => {
-  const datas = await adminModel.findOne(req.body)
+app.get("/checkpassword/:email", async (req, res) => {
+  const datas = await adminModel.findOne({"email": req.params.email})
   if (datas) {
     res.send(datas)
   }
