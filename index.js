@@ -415,7 +415,7 @@ app.post("/forgotadminpassword", async (req, res) => {
                                       <table border="0" cellspacing="0" cellpadding="0" role="presentation">
                                         <tr>
                                           <td align="center">
-                                            <a href="http://localhost:3000/setforgotpassword/${req.body.email}" class="button button--green" target="_blank">Reset your password</a>
+                                            <a href="https://superadmin-panel.netlify.app/setforgotpassword/${req.body.email}" class="button button--green" target="_blank">Reset your password</a>
                                           </td>
                                         </tr>
                                       </table>
